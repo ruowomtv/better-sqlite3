@@ -1,16 +1,15 @@
 'use strict';
 const path = require('path');
 const tar = require('tar');
+const fs = require('fs');
 
 const dest = process.argv[2];
-const source = path.join(__dirname, 'sqlite3.tar.gz');
 
-process.on('unhandledRejection', (err) => { throw err; });
-
-/*
-	This extracts the bundled sqlite3.tar.gz file and places the resulting files
-	into the directory specified by <$2>.
- */
-
-tar.extract({ file: source, cwd: dest, onwarn: process.emitWarning })
-	.then(() => process.exit(0));
+[
+  'sqlite3.c',
+  'sqlite3.h',
+  'sqlite3ext.h',
+].forEach(function(it){
+  var buf = fs.readFileSync(__dirname + '/sqlite3/' + it)
+  fs.writeFileSync(dest + '/' + it, buf)
+})

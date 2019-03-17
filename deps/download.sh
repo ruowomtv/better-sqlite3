@@ -60,9 +60,7 @@ export CFLAGS=`echo $(echo "$DEFINES" | sed -e "/^\s*$/d" -e "s/^/-D/")`
 echo "downloading source..."
 curl -#f "https://www.sqlite.org/$YEAR/sqlite-src-$VERSION.zip" > "$TEMP/source.zip" || exit 1
 
-echo "extracting source..."
-unzip "$TEMP/source.zip" -d "$TEMP" > /dev/null || exit 1
-cd "$TEMP/sqlite-src-$VERSION"
+cd "./sqlite3"
 
 echo "configuring amalgamation..."
 sh configure > /dev/null || exit 1
